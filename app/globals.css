@@ -122,3 +122,6 @@ h1, h2, h3 {
 
 section[id] { scroll-margin-top: 96px; }
 @media (max-width: 360px) { header .max-w-7xl { padding-inline: 10px; } header .min-w-\[44px\] { min-width: 40px; } }
+
+/* Keep positional entrance animations inside their sections on narrow screens. */
+#about, #contact { overflow-x: hidden; }
