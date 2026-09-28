@@ -18,16 +18,16 @@ export default function About() {
       <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         {/* Text */}
         <div>
-          <motion.p {...slide(0)} className="text-[#c5a86a] text-xs tracking-[0.35em] uppercase mb-4">{a.subtitle}</motion.p>
-          <motion.h2 {...slide(0.05)} className="text-3xl md:text-5xl font-light text-[#e8e0d6] mb-5" style={{ fontFamily: "var(--font-serif)" }}>{a.title}</motion.h2>
+          <motion.p {...slide(0)} className="text-[#b9afff] text-xs tracking-[0.35em] uppercase mb-4">{a.subtitle}</motion.p>
+          <motion.h2 {...slide(0.05)} className="text-3xl md:text-5xl font-light text-[#f2f0fb] mb-5" style={{ fontFamily: "var(--font-serif)" }}>{a.title}</motion.h2>
           <motion.div {...slide(0.1)} className="divider mb-8" />
-          <motion.p {...slide(0.12)} className="text-[#e8e0d6]/65 leading-relaxed mb-5 text-base md:text-lg">{a.text1}</motion.p>
-          <motion.p {...slide(0.15)} className="text-[#e8e0d6]/65 leading-relaxed mb-8 text-base md:text-lg">{a.text2}</motion.p>
+          <motion.p {...slide(0.12)} className="text-[#f2f0fb]/65 leading-relaxed mb-5 text-base md:text-lg">{a.text1}</motion.p>
+          <motion.p {...slide(0.15)} className="text-[#f2f0fb]/65 leading-relaxed mb-8 text-base md:text-lg">{a.text2}</motion.p>
           <motion.a
             {...slide(0.18)}
             href="https://limanrestaurant.ofoodo.com/#/catalog/2a1c03aa-3c1d-e22a-9cc4-2ad152f4c997"
             target="_blank" rel="noopener noreferrer"
-            className="inline-block px-8 py-3 bg-[#c5a86a] text-[#0c0c0c] font-semibold text-sm tracking-widest uppercase hover:bg-[#d4b87a] transition-colors duration-200"
+            className="inline-block px-8 py-3 bg-[#b9afff] text-[#101425] font-semibold text-sm tracking-widest uppercase hover:bg-[#d1caff] transition-colors duration-200"
             style={{ fontFamily: "var(--font-sans)" }}
           >
             {a.menuBtn}
@@ -44,25 +44,20 @@ export default function About() {
         >
           <div className="overflow-hidden relative" style={{ position: "relative", paddingBottom: "125%", height: 0 }}>
             <img
-              src="https://limanrestaurant.ge/images/content/about_header_background.jpg"
+              src="/images/liman-restaurant.jpg"
               alt="Liman Restaurant"
               className="absolute inset-0 w-full h-full object-cover"
             />
-          </div>
-          {/* Sea decoration */}
-          <div className="absolute -bottom-5 -right-5 glass p-4 hidden md:block">
-            <div className="text-[#c5a86a] text-2xl font-serif mb-1">∿</div>
-            <p className="text-[#e8e0d6]/60 text-xs tracking-widest uppercase">Sea View</p>
           </div>
         </motion.div>
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-px mt-14 border border-[#c5a86a]/10">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-px mt-14 border border-[#b9afff]/10">
         {a.stats.map((val, i) => (
-          <motion.div key={i} {...slide(i * 0.08)} className="glass p-6 md:p-10 text-center">
-            <div className="text-2xl md:text-3xl font-light text-[#c5a86a] mb-2" style={{ fontFamily: "var(--font-serif)" }}>{val}</div>
-            <div className="text-[#e8e0d6]/45 text-xs tracking-widest uppercase">{a.statsLabels[i]}</div>
+          <motion.div key={i} {...slide(i * 0.08)} className="glass p-5 md:p-10 flex items-center justify-between sm:block text-left sm:text-center">
+            <div className="text-xl md:text-3xl font-light text-[#b9afff] mb-2" style={{ fontFamily: "var(--font-serif)" }}>{val}</div>
+            <div className="text-[#f2f0fb]/60 text-xs tracking-wide uppercase">{a.statsLabels[i]}</div>
           </motion.div>
         ))}
       </div>

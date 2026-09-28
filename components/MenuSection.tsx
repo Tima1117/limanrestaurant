@@ -18,23 +18,23 @@ export default function MenuSection() {
   return (
     <section id="menu" className="py-16 md:py-28 px-4 md:px-6 max-w-7xl mx-auto">
       <div className="text-center mb-14">
-        <motion.p {...slide(0)} className="text-[#c5a86a] text-xs tracking-[0.35em] uppercase mb-3">{m.subtitle}</motion.p>
-        <motion.h2 {...slide(0.05)} className="text-3xl md:text-5xl font-light text-[#e8e0d6] mb-5" style={{ fontFamily: "var(--font-serif)" }}>{m.title}</motion.h2>
+        <motion.p {...slide(0)} className="text-[#b9afff] text-xs tracking-[0.35em] uppercase mb-3">{m.subtitle}</motion.p>
+        <motion.h2 {...slide(0.05)} className="text-3xl md:text-5xl font-light text-[#f2f0fb] mb-5" style={{ fontFamily: "var(--font-serif)" }}>{m.title}</motion.h2>
         <div className="divider mx-auto mb-6" />
-        <motion.p {...slide(0.1)} className="text-[#e8e0d6]/60 max-w-xl mx-auto text-base">{m.text}</motion.p>
+        <motion.p {...slide(0.1)} className="text-[#f2f0fb]/60 max-w-xl mx-auto text-base">{m.text}</motion.p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px border border-[#c5a86a]/08 mb-12">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-12">
         {m.categories.map((cat, i) => (
           <motion.div
             key={i}
             {...slide(i * 0.07)}
-            className="glass p-7 group hover:border-[#c5a86a]/30 transition-all duration-300"
+            className="glass p-9 group hover:border-[#b9afff]/30 transition-all duration-300"
           >
-            <div className="text-3xl mb-4">{ICONS[i]}</div>
-            <h3 className="text-[#e8e0d6] text-lg font-light mb-2" style={{ fontFamily: "var(--font-serif)" }}>{cat.title}</h3>
-            <div className="w-8 h-px bg-[#c5a86a]/40 mb-3 group-hover:w-12 transition-all duration-300" />
-            <p className="text-[#e8e0d6]/50 text-sm leading-relaxed">{cat.desc}</p>
+            <div className="text-5xl mb-5">{ICONS[i]}</div>
+            <h3 className="text-[#f2f0fb] text-lg font-light mb-2" style={{ fontFamily: "var(--font-serif)" }}>{cat.title}</h3>
+            <div className="w-8 h-px bg-[#b9afff]/40 mb-3 group-hover:w-12 transition-all duration-300" />
+            <p className="text-[#f2f0fb]/70 text-sm leading-relaxed">{cat.desc}</p>
           </motion.div>
         ))}
       </div>
@@ -44,7 +44,7 @@ export default function MenuSection() {
           href="https://limanrestaurant.ofoodo.com/#/catalog/2a1c03aa-3c1d-e22a-9cc4-2ad152f4c997"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-3 px-10 py-4 bg-[#c5a86a] text-[#0c0c0c] font-semibold text-sm tracking-widest uppercase hover:bg-[#d4b87a] transition-colors duration-200"
+          className="inline-flex items-center gap-3 px-10 py-4 bg-[#b9afff] text-[#101425] font-semibold text-sm tracking-widest uppercase hover:bg-[#d1caff] transition-colors duration-200"
           style={{ fontFamily: "var(--font-sans)" }}
         >
           {m.btn}

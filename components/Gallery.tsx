@@ -1,117 +1,92 @@
 "use client";
-import { useState } from "react";
-import { motion } from "framer-motion";
+
+import { useEffect, useState } from "react";
+import Image from "next/image";
 import { useLang } from "@/lib/LangContext";
 
-const PHOTOS = [
-  {
-    src: "https://limanrestaurant.ge/images/content/about_header_background.jpg",
-    tab: 0,
-    ratio: "56.25%",
-  },
-  {
-    src: "https://limanrestaurant.ge/images/content/WhatsApp_Image_2023-04-28_at_19.28.50.jpeg",
-    tab: 2,
-    ratio: "75%",
-  },
-  {
-    src: "https://limanrestaurant.ge/images/content/about_header_background.jpg",
-    tab: 1,
-    ratio: "66.66%",
-  },
-  {
-    src: "https://limanrestaurant.ge/images/content/WhatsApp_Image_2023-04-28_at_19.28.50.jpeg",
-    tab: 0,
-    ratio: "75%",
-  },
-  {
-    src: "https://limanrestaurant.ge/images/content/about_header_background.jpg",
-    tab: 2,
-    ratio: "66.66%",
-  },
-  {
-    src: "https://limanrestaurant.ge/images/content/WhatsApp_Image_2023-04-28_at_19.28.50.jpeg",
-    tab: 1,
-    ratio: "75%",
-  },
+const albums = [
+  [
+    { src: "/images/liman-lounge.jpg", alt: "Liman restaurant lounge" },
+    { src: "/images/liman-room.jpg", alt: "Liman dining room" },
+    { src: "/images/liman-dining.jpg", alt: "Liman dining area" },
+    { src: "/images/liman-booths.jpg", alt: "Liman restaurant seating" },
+  ],
+  [
+    { src: "/images/liman-terrace-dining.jpg", alt: "Guests dining on Liman's sea-view terrace" },
+    { src: "/images/liman-terrace-coffee.jpg", alt: "Coffee with a view of the sea" },
+    { src: "/images/liman-terrace-seating.jpg", alt: "Colourful terrace seating" },
+    { src: "/images/liman-terrace-sea.jpg", alt: "Black Sea view from the terrace" },
+  ],
+  [
+    { src: "/images/liman-breakfast.jpg", alt: "Breakfast served at Liman" },
+    { src: "/images/liman-soup.jpg", alt: "Turkish soup" },
+    { src: "/images/liman-fish.jpg", alt: "Fish served at Liman" },
+    { src: "/images/liman-pide.jpg", alt: "Fresh Turkish pide" },
+  ],
 ];
-
-const slide = (delay = 0) => ({
-  initial: { y: 24 },
-  whileInView: { y: 0 },
-  viewport: { once: true, amount: 0 } as const,
-  transition: { duration: 0.6, delay },
-});
 
 export default function Gallery() {
   const { t } = useLang();
-  const g = t.gallery;
   const [activeTab, setActiveTab] = useState(0);
-  const [lightbox, setLightbox] = useState<string | null>(null);
+  const [lightbox, setLightbox] = useState<number | null>(null);
+  const photos = albums[activeTab];
 
-  const visible = PHOTOS.filter((p) => p.tab === activeTab);
+  useEffect(() => {
+    const gallery = document.getElementById("gallery");
+    if (!gallery) return;
+    const preload = () => albums.flat().forEach((photo) => { const img = new window.Image(); img.src = photo.src; });
+    if (!("IntersectionObserver" in window)) { preload(); return; }
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0]?.isIntersecting) { preload(); observer.disconnect(); }
+    }, { rootMargin: "600px" });
+    observer.observe(gallery);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (lightbox === null) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setLightbox(null);
+      if (event.key === "ArrowRight") setLightbox((i) => i === null ? null : (i + 1) % photos.length);
+      if (event.key === "ArrowLeft") setLightbox((i) => i === null ? null : (i + photos.length - 1) % photos.length);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [lightbox, photos.length]);
 
   return (
-    <section id="gallery" className="py-16 md:py-28 bg-[#181818]">
-      <div className="max-w-7xl mx-auto px-4 md:px-6">
-        <div className="text-center mb-12">
-          <motion.p {...slide(0)} className="text-[#c5a86a] text-xs tracking-[0.35em] uppercase mb-3">{g.subtitle}</motion.p>
-          <motion.h2 {...slide(0.05)} className="text-3xl md:text-5xl font-light text-[#e8e0d6] mb-6" style={{ fontFamily: "var(--font-serif)" }}>{g.title}</motion.h2>
-          <div className="divider mx-auto mb-8" />
-
-          {/* Tabs */}
-          <div className="flex items-center justify-center gap-1">
-            {g.tabs.map((tab, i) => (
-              <button
-                key={i}
-                onClick={() => setActiveTab(i)}
-                style={{ touchAction: "manipulation", fontFamily: "var(--font-sans)" }}
-                className={`px-5 py-2.5 min-h-[40px] text-xs tracking-widest uppercase transition-all duration-200 ${
-                  activeTab === i
-                    ? "bg-[#c5a86a] text-[#0c0c0c] font-semibold"
-                    : "text-[#e8e0d6]/50 border border-[#e8e0d6]/10 hover:text-[#c5a86a] hover:border-[#c5a86a]/40"
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
+    <section id="gallery" className="section-pad bg-[#171b31]">
+      <div className="section-shell">
+        <div className="section-heading text-center">
+          <p className="eyebrow">{t.gallery.subtitle}</p>
+          <h2>{t.gallery.title}</h2>
+          <div className="divider mx-auto" />
         </div>
-
-        {/* Gallery grid */}
-        <div key={activeTab} className="grid grid-cols-2 md:grid-cols-3 gap-1">
-          {visible.map((photo, i) => (
-            <motion.div
-              key={i}
-              initial={{ y: 20 }}
-              animate={{ y: 0 }}
-              transition={{ duration: 0.4, delay: i * 0.07 }}
-              className="group cursor-pointer overflow-hidden relative"
-              style={{ position: "relative", paddingBottom: photo.ratio, height: 0 }}
-              onClick={() => setLightbox(photo.src)}
-            >
-              <img
-                src={photo.src}
-                alt=""
-                loading="lazy"
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-300 flex items-center justify-center">
-                <svg className="text-white opacity-0 group-hover:opacity-80 transition-opacity" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
-              </div>
-            </motion.div>
+        <div className="flex flex-wrap justify-center gap-2 mb-8" role="tablist" aria-label={t.gallery.title}>
+          {t.gallery.tabs.map((tab, i) => (
+            <button key={tab} type="button" role="tab" aria-selected={activeTab === i}
+              onClick={() => { setActiveTab(i); setLightbox(null); }}
+              className={`gallery-tab ${activeTab === i ? "gallery-tab-active" : ""}`}>{tab}</button>
+          ))}
+        </div>
+        <div key={activeTab} className={`gallery-grid gallery-count-${photos.length}`} role="tabpanel">
+          {photos.map((photo, i) => (
+            <button key={photo.src} type="button" className="gallery-tile group"
+              onClick={() => setLightbox(i)} aria-label={`${t.gallery.title}: ${i + 1}`}>
+              <Image src={photo.src} alt={photo.alt} fill unoptimized loading="lazy" sizes="(max-width: 640px) 100vw, (max-width: 900px) 50vw, 33vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+              <span className="gallery-zoom" aria-hidden="true">＋</span>
+            </button>
           ))}
         </div>
       </div>
-
-      {/* Lightbox */}
-      {lightbox && (
-        <div
-          className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
-          onClick={() => setLightbox(null)}
-        >
-          <img src={lightbox} alt="" className="max-w-full max-h-full object-contain" />
-          <button className="absolute top-5 right-5 text-white/70 hover:text-white text-3xl" onClick={() => setLightbox(null)}>×</button>
+      {lightbox !== null && (
+        <div className="fixed inset-0 z-[100] bg-[#080b15]/95 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label={photos[lightbox].alt} onClick={() => setLightbox(null)}>
+          <button type="button" className="absolute top-4 right-4 z-10 w-12 h-12 text-white text-3xl" aria-label="Close" onClick={() => setLightbox(null)}>×</button>
+          <button type="button" className="absolute left-2 md:left-5 z-10 w-12 h-12 text-white text-3xl" aria-label="Previous" onClick={(e) => { e.stopPropagation(); setLightbox((lightbox + photos.length - 1) % photos.length); }}>‹</button>
+          <div className="relative w-full max-w-5xl h-[75vh]" onClick={(e) => e.stopPropagation()}>
+            <Image src={photos[lightbox].src} alt={photos[lightbox].alt} fill sizes="100vw" className="object-contain" />
+          </div>
+          <button type="button" className="absolute right-2 md:right-5 z-10 w-12 h-12 text-white text-3xl" aria-label="Next" onClick={(e) => { e.stopPropagation(); setLightbox((lightbox + 1) % photos.length); }}>›</button>
         </div>
       )}
     </section>

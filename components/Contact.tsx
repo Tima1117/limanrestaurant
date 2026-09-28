@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { useLang } from "@/lib/LangContext";
 
 const slide = (delay = 0) => ({
@@ -19,13 +20,15 @@ const IconWhatsApp = () => (<svg width="20" height="20" viewBox="0 0 24 24" fill
 export default function Contact() {
   const { t } = useLang();
   const c = t.contact;
+  const [showMap, setShowMap] = useState(false);
+  useEffect(() => { const timer = window.setTimeout(() => setShowMap(true), 300); return () => window.clearTimeout(timer); }, []);
 
   return (
-    <section id="contact" className="py-16 md:py-28 bg-[#181818]">
+    <section id="contact" className="py-16 md:py-28 bg-[#171b31]">
       <div className="max-w-7xl mx-auto px-5 md:px-6">
         <motion.div {...slide(0)} className="mb-14">
-          <p className="text-[#c5a86a] text-xs tracking-[0.35em] uppercase mb-3">{c.subtitle}</p>
-          <h2 className="text-3xl md:text-5xl font-light text-[#e8e0d6] mb-5" style={{ fontFamily: "var(--font-serif)" }}>{c.title}</h2>
+          <p className="text-[#b9afff] text-xs tracking-[0.35em] uppercase mb-3">{c.subtitle}</p>
+          <h2 className="text-3xl md:text-5xl font-light text-[#f2f0fb] mb-5" style={{ fontFamily: "var(--font-serif)" }}>{c.title}</h2>
           <div className="divider" />
         </motion.div>
 
@@ -33,14 +36,14 @@ export default function Contact() {
           {/* Info cards */}
           <motion.div {...slide(0.05)} className="flex flex-col gap-0.5">
             <div className="glass p-6 flex gap-5 items-start">
-              <div className="text-[#c5a86a] mt-0.5 shrink-0"><IconPin /></div>
+              <div className="text-[#b9afff] mt-0.5 shrink-0"><IconPin /></div>
               <div>
-                <p className="text-[#c5a86a] text-xs tracking-[0.25em] uppercase mb-2">{c.addressNote}</p>
-                <p className="text-[#e8e0d6]/75 text-sm leading-relaxed whitespace-pre-line">{c.address}</p>
+                <p className="text-[#b9afff] text-xs tracking-[0.25em] uppercase mb-2">{c.addressNote}</p>
+                <p className="text-[#f2f0fb]/75 text-sm leading-relaxed whitespace-pre-line">{c.address}</p>
                 <a
-                  href="https://maps.app.goo.gl/DummyLimanPort"
+                  href="https://www.google.com/maps/search/?api=1&query=Liman+Restaurant+Gogebashvili+3+Batumi"
                   target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 mt-3 text-[#c5a86a]/60 hover:text-[#c5a86a] text-xs tracking-widest uppercase transition-colors"
+                  className="inline-flex items-center gap-1.5 mt-3 text-[#b9afff] hover:text-[#d1caff] text-xs tracking-widest uppercase transition-colors"
                 >
                   Google Maps →
                 </a>
@@ -48,10 +51,10 @@ export default function Contact() {
             </div>
 
             <div className="glass p-6 flex gap-5 items-start">
-              <div className="text-[#c5a86a] mt-0.5 shrink-0"><IconPhone /></div>
+              <div className="text-[#b9afff] mt-0.5 shrink-0"><IconPhone /></div>
               <div className="flex-1">
-                <p className="text-[#c5a86a] text-xs tracking-[0.25em] uppercase mb-2">Phone</p>
-                <a href={`tel:${c.phone}`} className="block text-[#e8e0d6]/80 text-xl font-light hover:text-[#c5a86a] transition-colors mb-3">{c.phone}</a>
+                <p className="text-[#b9afff] text-xs tracking-[0.25em] uppercase mb-2">Phone</p>
+                <a href={`tel:${c.phone}`} className="block text-[#f2f0fb]/80 text-xl font-light hover:text-[#b9afff] transition-colors mb-3">{c.phone}</a>
                 <a href="https://wa.me/995577096609" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 bg-[#25d366]/10 border border-[#25d366]/25 text-[#25d366]/80 hover:bg-[#25d366]/20 hover:text-[#25d366] text-xs tracking-widest uppercase transition-all">
                   <IconWhatsApp /> WhatsApp
                 </a>
@@ -59,18 +62,18 @@ export default function Contact() {
             </div>
 
             <div className="glass p-6 flex gap-5 items-start">
-              <div className="text-[#c5a86a] mt-0.5 shrink-0"><IconMail /></div>
+              <div className="text-[#b9afff] mt-0.5 shrink-0"><IconMail /></div>
               <div>
-                <p className="text-[#c5a86a] text-xs tracking-[0.25em] uppercase mb-2">Email</p>
-                <a href={`mailto:${c.email}`} className="text-[#e8e0d6]/65 text-sm hover:text-[#c5a86a] transition-colors">{c.email}</a>
+                <p className="text-[#b9afff] text-xs tracking-[0.25em] uppercase mb-2">Email</p>
+                <a href={`mailto:${c.email}`} className="text-[#f2f0fb]/65 text-sm hover:text-[#b9afff] transition-colors">{c.email}</a>
               </div>
             </div>
 
             <div className="glass p-6 flex gap-5 items-start">
-              <div className="text-[#c5a86a] mt-0.5 shrink-0"><IconClock /></div>
+              <div className="text-[#b9afff] mt-0.5 shrink-0"><IconClock /></div>
               <div>
-                <p className="text-[#c5a86a] text-xs tracking-[0.25em] uppercase mb-2">{c.hours.title}</p>
-                <p className="text-[#e8e0d6]/75 text-base font-light">{c.hours.value}</p>
+                <p className="text-[#b9afff] text-xs tracking-[0.25em] uppercase mb-2">{c.hours.title}</p>
+                <p className="text-[#f2f0fb]/75 text-base font-light">{c.hours.value}</p>
               </div>
             </div>
           </motion.div>
@@ -81,30 +84,30 @@ export default function Contact() {
             whileInView={{ x: 0 }}
             viewport={{ once: true, amount: 0 }}
             transition={{ duration: 0.7, delay: 0.08 }}
-            className="overflow-hidden border border-[#c5a86a]/12 min-h-[380px]"
+            className="overflow-hidden border border-[#b9afff]/12 min-h-[380px]"
           >
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2977.1!2d41.6234!3d41.6435!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zTGltYW4gUmVzdGF1cmFudA!5e0!3m2!1sen!2sge!4v1"
+            {showMap && <iframe
+              src="https://www.google.com/maps?q=41.652133,41.643812&z=16&output=embed"
               width="100%" height="100%"
-              style={{ border: 0, filter: "invert(90%) hue-rotate(180deg)", minHeight: "380px" }}
+              style={{ border: 0, width: "100%", height: "100%", minHeight: "380px" }}
               allowFullScreen loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               title="Liman Restaurant"
-            />
+            />}
           </motion.div>
         </div>
 
         {/* Social + footer */}
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div className="flex items-center gap-2">
-            <a href="https://www.facebook.com/Limanrestaurant" target="_blank" rel="noopener noreferrer" className="glass w-11 h-11 flex items-center justify-center text-[#e8e0d6]/40 hover:text-[#c5a86a] border border-transparent hover:border-[#c5a86a]/30 transition-all duration-200">
+            <a href="https://www.facebook.com/Limanrestaurant" target="_blank" rel="noopener noreferrer" className="glass w-11 h-11 flex items-center justify-center text-[#f2f0fb] hover:text-[#b9afff] border border-transparent hover:border-[#b9afff]/30 transition-all duration-200">
               <IconFacebook />
             </a>
-            <a href="https://wa.me/995577096609" target="_blank" rel="noopener noreferrer" className="glass w-11 h-11 flex items-center justify-center text-[#e8e0d6]/40 hover:text-[#25d366] border border-transparent hover:border-[#25d366]/30 transition-all duration-200">
+            <a href="https://wa.me/995577096609" target="_blank" rel="noopener noreferrer" className="glass w-11 h-11 flex items-center justify-center text-[#f2f0fb] hover:text-[#25d366] border border-transparent hover:border-[#25d366]/30 transition-all duration-200">
               <IconWhatsApp />
             </a>
           </div>
-          <p className="text-[#e8e0d6]/25 text-xs tracking-widest">© 2021 Liman Restaurant · Batumi, Georgia</p>
+          <p className="text-[#f2f0fb]/80 text-sm tracking-widest">© 2021 Liman Restaurant · Batumi, Georgia</p>
         </div>
       </div>
     </section>

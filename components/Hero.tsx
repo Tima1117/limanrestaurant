@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 import { useLang } from "@/lib/LangContext";
 
 const BG_IMAGES = [
-  "https://limanrestaurant.ge/images/content/about_header_background.jpg",
-  "https://limanrestaurant.ge/images/content/WhatsApp_Image_2023-04-28_at_19.28.50.jpeg",
-  "https://limanrestaurant.ge/images/content/about_header_background.jpg",
+  "/images/liman-waterfront.jpg",
+  "/images/liman-lounge.jpg",
+  "/images/liman-exterior.jpg",
 ];
 
 export default function Hero() {
@@ -35,11 +35,11 @@ export default function Hero() {
       ))}
 
       {/* Overlays */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
-      <div className="absolute inset-0 bg-[#0c0c0c]/30" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/85" />
+      <div className="absolute inset-0 bg-[#101425]/30" />
 
       {/* Wave decorative line */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#0c0c0c] to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#101425] to-transparent" />
 
       {/* Content */}
       <div className="relative z-10 text-center px-5 max-w-4xl mx-auto">
@@ -47,7 +47,7 @@ export default function Hero() {
           initial={{ y: 12 }}
           animate={{ y: 0 }}
           transition={{ duration: 0.7 }}
-          className="text-[#c5a86a] text-xs tracking-[0.4em] uppercase mb-6"
+          className="text-[#b9afff] text-xs tracking-[0.4em] uppercase mb-6"
         >
           {t.hero.subtitle}
         </motion.p>
@@ -59,9 +59,9 @@ export default function Hero() {
           className="mb-4"
         >
           <img
-            src="https://limanrestaurant.ge/images/logo_intro.png"
+            src="/images/liman-logo-intro.png"
             alt="Liman"
-            className="h-20 md:h-28 object-contain mx-auto"
+            className="h-28 md:h-40 object-contain mx-auto"
             style={{ filter: "brightness(1.2) drop-shadow(0 4px 24px rgba(197,168,106,0.4))" }}
           />
         </motion.div>
@@ -74,7 +74,7 @@ export default function Hero() {
             animate={{ y: 0 }}
             exit={{ y: -12 }}
             transition={{ duration: 0.4 }}
-            className="text-[#e8e0d6]/75 text-base md:text-lg tracking-widest font-light"
+            className="text-[#f2f0fb]/75 text-base md:text-lg tracking-widest font-light"
           >
             {t.hero.taglines[taglineIdx]}
           </motion.p>
@@ -88,7 +88,7 @@ export default function Hero() {
         >
           <a
             href="#booking"
-            className="px-8 py-3.5 bg-[#c5a86a] text-[#0c0c0c] font-semibold text-sm tracking-widest uppercase hover:bg-[#d4b87a] transition-colors duration-200"
+            className="px-8 py-3.5 bg-[#b9afff] text-[#101425] font-semibold text-sm tracking-widest uppercase hover:bg-[#d1caff] transition-colors duration-200"
             style={{ fontFamily: "var(--font-sans)" }}
           >
             {t.hero.cta}
@@ -97,7 +97,7 @@ export default function Hero() {
             href="https://limanrestaurant.ofoodo.com/#/catalog/2a1c03aa-3c1d-e22a-9cc4-2ad152f4c997"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-8 py-3.5 border border-[#c5a86a]/50 text-[#c5a86a] text-sm tracking-widest uppercase hover:border-[#c5a86a] hover:bg-[#c5a86a]/10 transition-all duration-200"
+            className="px-8 py-3.5 border border-[#b9afff] bg-[#101425]/85 text-[#f2f0fb] text-sm tracking-widest uppercase hover:border-[#b9afff] hover:bg-[#b9afff]/10 transition-all duration-200"
             style={{ fontFamily: "var(--font-sans)" }}
           >
             {t.hero.menuBtn}
@@ -112,7 +112,7 @@ export default function Hero() {
             key={i}
             onClick={() => setSlide(i)}
             className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-              slide === i ? "bg-[#c5a86a] w-6" : "bg-white/30"
+              slide === i ? "bg-[#b9afff] w-6" : "bg-white/30"
             }`}
           />
         ))}
@@ -120,7 +120,7 @@ export default function Hero() {
 
       {/* Scroll hint */}
       <div className="absolute bottom-8 right-6 flex flex-col items-center gap-2 opacity-40">
-        <span className="text-[10px] tracking-[0.3em] uppercase text-[#e8e0d6] rotate-90 origin-center">scroll</span>
+        <span className="text-[10px] tracking-[0.3em] uppercase text-[#f2f0fb] rotate-90 origin-center">scroll</span>
       </div>
     </section>
   );
