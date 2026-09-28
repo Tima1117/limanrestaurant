@@ -88,7 +88,7 @@ export default function Contact() {
           >
             {showMap && <iframe
               src="https://www.google.com/maps?q=41.652133,41.643812&z=16&output=embed"
-              width="100%" height="100%"
+              width={800} height={500}
               style={{ border: 0, width: "100%", height: "100%", minHeight: "380px" }}
               allowFullScreen loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
